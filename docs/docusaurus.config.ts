@@ -19,8 +19,8 @@ const config: Config = {
   onBrokenMarkdownLinks: "warn", // 마크다운 링크 오류는 경고만
 
   i18n: {
-    defaultLocale: "ko", // 기본 언어
-    locales: ["ko"], // 사용 언어
+    defaultLocale: "en", // 기본 언어
+    locales: ["en"], // 사용 언어
   },
 
   presets: [
