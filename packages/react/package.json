@@ -1,0 +1,37 @@
+{
+  "name": "hookdle-test",
+  "version": "1.0.11",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "esm/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./esm/index.d.ts",
+        "default": "./esm/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "esm"
+  ],
+  "scripts": {
+    "build:cjs": "tsc",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "npm run build:cjs && npm run build:esm",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist esm"
+  },
+  "devDependencies": {
+    "react": "^19.1.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  }
+}
