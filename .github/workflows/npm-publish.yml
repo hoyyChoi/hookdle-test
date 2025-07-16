@@ -1,0 +1,36 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - run: npm ci
+
+      # 👉 자동 버전 업 (패치 버전 기준)
+      - name: Bump npm version
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          npm version patch --no-git-tag-version
+          git add package.json package-lock.json
+          git commit -m "ci: bump version"
+          git push origin main
+
+      - run: npm run build
+
+      - name: Publish to NPM
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
