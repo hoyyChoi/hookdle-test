@@ -1,12 +1,17 @@
-name: Publish to NPM
+name: Publish React Package to npm
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./packages/react  # 📌 packages/react로 경로 지정
 
     steps:
       - uses: actions/checkout@v4
@@ -17,20 +22,8 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - run: npm ci
-
-      # 👉 자동 버전 업 (패치 버전 기준)
-      - name: Bump npm version
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          npm version patch --no-git-tag-version
-          git add package.json package-lock.json
-          git commit -m "ci: bump version"
-          git push origin main
-
       - run: npm run build
 
-      - name: Publish to NPM
-        run: npm publish
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
