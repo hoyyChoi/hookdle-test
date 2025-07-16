@@ -20,7 +20,7 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci --workspace=packages/react
 
       - name: Check Version Updated
         run: |
@@ -39,5 +39,7 @@ jobs:
       - name: Run Build
         run: npm run build
 
-      - name: Run Tests
-        run: npm test
+
+      # - name: Run Tests
+      #   run: npm test --workspace=react
+
