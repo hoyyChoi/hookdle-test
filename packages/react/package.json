@@ -27,7 +27,7 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build": "npm run build:cjs && npm run build:esm",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist esm",
+    "clean": "rm -rf dist esm node_modules package-lock.json",
     "test": "jest"
   },
   "devDependencies": {
