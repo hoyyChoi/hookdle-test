@@ -4,13 +4,14 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   check:
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        working-directory: ./packages/react # ✅ 이걸로 해결
+        working-directory: ./packages/react
 
     steps:
       - uses: actions/checkout@v4
@@ -20,11 +21,11 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: Check Version Updated
         run: |
-          CURRENT_VERSION=$(jq -r .version package.json)
+          CURRENT_VERSION=$(jq -r .version ./package.json)
           git fetch origin main
           BASE_VERSION=$(git show origin/main:packages/react/package.json | jq -r .version)
 
@@ -36,8 +37,8 @@ jobs:
             exit 1
           fi
 
+      - name: Run Tests
+        run: npm test
+
       - name: Run Build
         run: npm run build
-
-      # - name: Run Tests
-      #   run: npm test --workspace=react
