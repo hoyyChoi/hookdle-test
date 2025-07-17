@@ -33,7 +33,7 @@ jobs:
           echo "Base: $BASE_VERSION"
 
           if [ "$CURRENT_VERSION" = "$BASE_VERSION" ]; then
-            echo "::error::🚨 package.json 버전이 변경되지 않았습니다."
+            echo "::error::🚨 package.json 버전이 변경되지 않았습니다. (명령어 npm version patch를 진행해 주세요!)"
             exit 1
           fi
 
