@@ -8,7 +8,7 @@ type Controls = Return[1];
 describe("useBooleanState", () => {
   it("should initialize with false by default", () => {
     const { result } = renderHook(() => useBooleanState());
-    expect(result.current[0]).toBe(true);
+    expect(result.current[0]).toBe(false);
   });
 
   it("should initialize with true when passed", () => {
