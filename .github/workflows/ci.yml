@@ -37,8 +37,8 @@ jobs:
             exit 1
           fi
 
-      - name: Run Build
-        run: npm run build
-
       - name: Run Tests
         run: npm test
+
+      - name: Run Build
+        run: npm run build
