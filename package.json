@@ -7,6 +7,5 @@
   "scripts": {
     "build:hookdle": "npm run build --workspace=hookdle-test",
     "dev:docs": "npm run start --workspace=docs"
-  },
-  "version": "0.0.1"
+  }
 }
