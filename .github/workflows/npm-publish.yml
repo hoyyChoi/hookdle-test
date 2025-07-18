@@ -9,10 +9,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./packages/react  # 📌 packages/react로 경로 지정
-
     steps:
       - uses: actions/checkout@v4
 
@@ -21,9 +17,17 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
 
-      - run: npm ci
-      - run: npm run build
+      # 루트에서 의존성 설치 (package-lock.json 기준)
+      - name: Install Dependencies
+        run: npm ci
 
-      - run: npm publish
+      # react 디렉토리에서 빌드 & 퍼블리시
+      - name: Build React Package
+        working-directory: ./packages/react
+        run: npm run build
+
+      - name: Publish React Package
+        working-directory: ./packages/react
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
